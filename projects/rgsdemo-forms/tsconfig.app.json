@@ -19,12 +19,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
-    "noFallthroughCasesInSwitch": true,
-     "paths": {
-      "@assets/*": ["./src/assets/*"],
-      "@core/*": ["./src/core/*"],
-      "@features/*": ["./src/features/*"]
-    }
+    "noFallthroughCasesInSwitch": true
   },
   "include": ["src"]
 }
