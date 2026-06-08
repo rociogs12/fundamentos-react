@@ -1,18 +1,22 @@
 {
   "name": "react-rocio",
-  "type":"module",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev01": "npm run dev --workspaces=projects/rgsdemo-react",
-    "dev02": "npm run dev --workspaces=projects/rgsdemo-forms"
+    "dev02": "npm run dev --workspaces=projects/rgsdemo-forms",
+    "dev03": "npm run dev --workspaces=projects/rgsdemo-router"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "workspaces": [
     "projects/*"
-  ]
+  ],
+  "devDependencies": {
+    "sass": "^1.100.0"
+  }
 }
