@@ -1,0 +1,120 @@
+.movie-detail-card {
+  width: 100%;
+  max-width: 700px;
+  margin: 1rem auto;
+  border-radius: 12px;
+
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+  }
+  .movie-body {
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .movie-title {
+    margin: 0;
+    padding-bottom: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #111827;
+  }
+
+  .movie-subtitle {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #475569;
+    margin: 0;
+    padding: 0;
+    line-height: 0.9rem;
+  }
+
+  .list-group {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .list-group-item {
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    color: #475569;
+    border-top: 1px solid #f1f5f9;
+  }
+
+  .list-group-item:last-child {
+    color: #64748b;
+  }
+
+  .movie-year {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #2b3441;
+  }
+
+  .movie-genre-tags {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .genre-tag {
+    font-size: 1rem;
+    padding: 0.4rem 0.7rem;
+    border-radius: 999px;
+
+    background-color: #f1f5f9;
+    color: #334155;
+
+    border: 1px solid #e2e8f0;
+
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .movie-button {
+    font-size: 1rem;
+    padding: 0.3rem 0.7rem;
+    margin-bottom: 1.2rem;
+
+    border-radius: 999px;
+    border: 1px solid transparent;
+
+    background-color: #96a4e9;
+    color: white;
+
+    cursor: pointer;
+
+    transition: all 0.15s ease;
+
+    white-space: nowrap;
+
+    &:hover {
+      transform: translateY(-1px);
+      background-color: #7b8ad4;
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    &:focus {
+      outline: 2px solid #93c5fd;
+      outline-offset: 2px;
+    }
+  }
+  .text-danger {
+    color: #dc2626;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    margin: 2rem 0;
+  }
+}

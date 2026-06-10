@@ -1,8 +1,7 @@
-import './home-page.css'
-import { Movies } from '@features/movies/components/Movies'
+import "./home-page.css";
 
-export const HomePage: React.FC = () => {
-    return ( 
-        <Movies />
-    )
-}
+const HomePage: React.FC = () => {
+  return <h2>Hola</h2>;
+};
+
+export default HomePage;

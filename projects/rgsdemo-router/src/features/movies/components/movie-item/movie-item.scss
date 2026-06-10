@@ -1,0 +1,150 @@
+.movie-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  display: flex;
+  flex-direction: column;
+
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+  }
+
+  .movie-body {
+    padding: 0.75rem;
+  }
+
+  .movie-title {
+    margin: 0;
+    padding-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #111827;
+  }
+
+  .movie-subtitle {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #475569;
+    margin: 0;
+    padding: 0;
+    line-height: 0.9rem;
+  }
+
+  .list-group {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .list-group-item {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+    color: #475569;
+    border-top: 1px solid #f1f5f9;
+  }
+
+  .list-group-item:last-child {
+    font-size: 0.7rem;
+    line-height: 1.4;
+    color: #64748b;
+  }
+
+  .movie-year {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #2b3441;
+  }
+
+  .movie-genre-tags {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .genre-tag {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+
+    background-color: #f1f5f9;
+    color: #334155;
+
+    border: 1px solid #e2e8f0;
+
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+
+  .movie-buttons {
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: .4rem;
+  }
+  .movie-button {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.7rem;
+
+    border-radius: 999px;
+    border: 1px solid transparent;
+
+    background-color: #96a4e9;
+    color: white;
+
+    cursor: pointer;
+
+    transition: all 0.15s ease;
+
+    white-space: nowrap;
+
+    &:hover {
+      transform: translateY(-1px);
+      background-color: #7b8ad4;
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    &:focus {
+      outline: 2px solid #93c5fd;
+      outline-offset: 2px;
+    }
+  }
+
+  /* Variante secundaria (Edit) */
+  .movie-button--detail {
+    background-color: #f1f5f9;
+    color: #334155;
+    border: 1px solid #e2e8f0;
+
+    &:hover {
+      background-color: #e2e8f0;
+    }
+  }
+  .movie-button--delete {
+    background-color: #ffa4a4;
+    border: 1px solid #e2e8f0;
+
+    &:hover {
+      background-color: #d18888;
+    }
+  }
+}

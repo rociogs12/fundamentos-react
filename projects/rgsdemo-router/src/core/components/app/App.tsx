@@ -6,10 +6,6 @@ import './App.css'
 const getOptions = (): MenuOption[] => {
   return [
     {
-      path: '/home',
-      label: 'Home',
-    },
-    {
       path: '/movies',
       label: 'Movies',
     },

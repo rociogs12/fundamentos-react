@@ -1,7 +1,7 @@
-import type { MovieProps } from "../types/movie.ts";
+import type { Movie } from "../types/movie.ts";
 
 
-export const Movie: React.FC<MovieProps> = ({
+export const Movie: React.FC<Movie> = ({
     title, 
     director, 
     //year, 

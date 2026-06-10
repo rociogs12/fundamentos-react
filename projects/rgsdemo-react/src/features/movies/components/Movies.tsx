@@ -1,9 +1,9 @@
 import { Movie } from "./Movie.tsx";
-import type { MovieProps } from "../types/movie.ts";
+import type { Movie } from "../types/movie.ts";
 import { useState } from "react";
 
 
-const getMovies = (): MovieProps[] => {
+const getMovies = (): Movie[] => {
   return ([
     {
       id: 1,
@@ -20,7 +20,7 @@ const getMovies = (): MovieProps[] => {
 
 export const Movies: React.FC = () => {
   const prevMovies = getMovies(); 
-  const [movies, setMovies] = useState<MovieProps[]>(prevMovies);
+  const [movies, setMovies] = useState<Movie[]>(prevMovies);
 
   return (
     <section className="movies-container">

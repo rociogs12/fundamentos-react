@@ -1,6 +1,6 @@
 
 
-export const NotFoundPage: React.FC = () => {
+const NotFoundPage: React.FC = () => {
     return (
         <section>
             <h2>ERROR 404</h2>
@@ -8,3 +8,5 @@ export const NotFoundPage: React.FC = () => {
         </section>
     )
 }
+
+export default NotFoundPage;
