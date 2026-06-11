@@ -16,7 +16,7 @@ export const MovieDetail: React.FC<Props> = ({ id }) => {
   const handleGoBack = (): void => {
     navigate("/movies");
   };
-  
+
   return (
     <article className="movie-detail-card">
         { movie ? (
@@ -43,7 +43,7 @@ export const MovieDetail: React.FC<Props> = ({ id }) => {
             </ul>
             </>
         ) : 
-        <p className="text-danger">Invalid product id: {id}</p>
+        <p className="text-danger">Invalid movie id: {id}</p>
         }
         <button className="movie-button" onClick={handleGoBack}>
           Back to Films

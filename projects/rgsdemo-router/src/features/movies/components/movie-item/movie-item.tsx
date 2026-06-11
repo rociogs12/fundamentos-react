@@ -13,17 +13,17 @@ interface Props {
 export const Movie: React.FC<Props> = ({ movie, onDelete, onEdit }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const handleDelete = () => {
-    console.log(`Película con id ${movie.id} eliminada`)
+    console.log(`Movie with id ${movie.id} deleted (React)`)
     onDelete(movie.id);
   };
   const handleEdit = (movie: MovieProps) => {
-    console.log(`Película con id ${movie.id} editado`);
+    console.log(`Movie with id ${movie.id} edited (React)`);
     onEdit(movie);
     dialogRef.current?.close();
   };
 
   const handleEditStart = () => {
-    console.log(`Película con id ${movie.id} preparado para edición`);
+    console.log(`Movie with id ${movie.id} ready to edit (React)`);
     // Se abre el product form con los datos para editar
     dialogRef.current?.showModal();
   };

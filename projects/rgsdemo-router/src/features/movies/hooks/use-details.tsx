@@ -17,7 +17,7 @@ export const useDetails = (id: MovieProps["id"]): UseDetailType => {
         console.log("Movie details loaded successfully: ", response);
       } catch (error) {
         console.error(
-          "Failed to load film details: ",
+          "Failed to load movie details: ",
           (error as Error).message,
         );
       }

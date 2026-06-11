@@ -6,11 +6,12 @@ import "./movie-form.scss";
 
 interface Props {
   editedMovie?: MovieProps;
-  onAdd?: (data: NewMovieDTO) => void;
+  onAdd?: (data: NewMovieDTO) => Promise<void>;
   onEdit?: (data: MovieProps) => void;
+  onSubmitSuccess?: () => void;
 }
 
-export const MovieForm: React.FC<Props> = ({ onAdd, onEdit, editedMovie }) => {
+export const MovieForm: React.FC<Props> = ({ onAdd, onEdit, editedMovie, onSubmitSuccess }) => {
   // Para el select de los años
   const range = (start: number, end: number) =>
     Array.from({ length: end - start + 1 }, (_, index) => start + index);
@@ -63,6 +64,8 @@ export const MovieForm: React.FC<Props> = ({ onAdd, onEdit, editedMovie }) => {
     } else if (onAdd) {
       console.log("Register data: ", movie);
       onAdd(movie);
+      console.log("guardado");
+      onSubmitSuccess?.();
     }
   };
 
