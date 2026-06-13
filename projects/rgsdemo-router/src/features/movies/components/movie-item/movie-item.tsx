@@ -1,33 +1,12 @@
 import "../movie-item/movie-item.scss";
 import { Link } from "react-router";
-import { useRef } from "react";
 import type { MovieProps } from "../../types/movie.ts";
-import { MovieForm } from "../movie-form/movie-form.tsx";
 
 interface Props {
   movie: MovieProps;
-  onDelete: (id: string) => void;
-  onEdit: (movie: MovieProps) => void;
 }
 
-export const Movie: React.FC<Props> = ({ movie, onDelete, onEdit }) => {
-  const dialogRef = useRef<HTMLDialogElement>(null);
-  const handleDelete = () => {
-    console.log(`Movie with id ${movie.id} deleted (React)`)
-    onDelete(movie.id);
-  };
-  const handleEdit = (movie: MovieProps) => {
-    console.log(`Movie with id ${movie.id} edited (React)`);
-    onEdit(movie);
-    dialogRef.current?.close();
-  };
-
-  const handleEditStart = () => {
-    console.log(`Movie with id ${movie.id} ready to edit (React)`);
-    // Se abre el product form con los datos para editar
-    dialogRef.current?.showModal();
-  };
-
+export const Movie: React.FC<Props> = ({ movie }) => {
   return (
     <article className="movie-card">
       <div className="movie-body">
@@ -54,18 +33,6 @@ export const Movie: React.FC<Props> = ({ movie, onDelete, onEdit }) => {
         <Link to={"/movie/" + movie.id}>
           <button className="movie-button movie-button--detail">Detail</button>
         </Link>
-        <button className="movie-button" onClick={handleEditStart}>
-          Edit
-        </button>
-        <button
-          className="movie-button movie-button--delete"
-          onClick={handleDelete}
-        >
-          Delete
-        </button>
-        <dialog ref={dialogRef}>
-          <MovieForm onEdit={handleEdit} editedMovie={movie} />
-        </dialog>
       </div>
     </article>
   );

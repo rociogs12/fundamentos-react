@@ -4,15 +4,13 @@ import "../movies-list/movies-list.scss";
 
 interface Props {
   movies: MovieProps[];
-  onDelete: (id: string) => void;
-  onEdit: (movie: MovieProps) => void;
 }
 
-export const MoviesList: React.FC<Props> = ({ movies, onDelete, onEdit }) => {
+export const MoviesList: React.FC<Props> = ({ movies }) => {
   return (
     <section className="movies-container">
       {movies.map((movie) => (
-        <Movie key={movie.id} movie={movie} onDelete={onDelete} onEdit={onEdit}/>
+        <Movie key={movie.id} movie={movie}/>
       ))}
     </section>
   );

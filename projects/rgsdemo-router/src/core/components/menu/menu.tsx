@@ -3,19 +3,19 @@ import { Link } from "react-router";
 import "./menu.scss";
 
 type Props = {
-    readonly options: MenuOption[];
+  readonly options: MenuOption[];
 };
 
 export const Menu: React.FC<Props> = ({ options }) => {
-    return (
-        <nav>
-            <ul>
-                {options.map((item) => (
-                    <li key={item.path}>
-                        <Link to={item.path}> {item.label}</Link>
-                    </li>
-                ))}
-            </ul>
-        </nav>
-    );
+  return (
+    <nav>
+      <ul>
+        {options.map((item) => (
+          <li key={item.path}>
+            <Link to={item.path}> {item.label}</Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
 };

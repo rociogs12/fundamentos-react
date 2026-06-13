@@ -110,6 +110,15 @@
       outline-offset: 2px;
     }
   }
+  .movie-button--delete {
+    background-color: #ffa4a4;
+    border: 1px solid #e2e8f0;
+
+    &:hover {
+      background-color: #d18888;
+    }
+  }
+
   .text-danger {
     color: #dc2626;
     font-size: 1rem;

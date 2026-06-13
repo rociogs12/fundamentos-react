@@ -1,12 +1,10 @@
-import type { Genre } from "./genre";
-
 
 export type MovieProps = {
     id: string; 
     title: string; 
     director: string; 
     year: number; 
-    genre: Genre[];
+    genre: string[];
     image: string; 
     isWatched: boolean; 
     description: string; 

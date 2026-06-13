@@ -1,8 +1,9 @@
 import type { MovieProps, NewMovieDTO } from "@features/movies/types/movie";
-import { useState, type ChangeEvent } from "react";
-import { GENRES } from "@features/movies/types/genre";
-import type { Genre } from "@features/movies/types/genre";
+import { useEffect, useState, type ChangeEvent } from "react";
+import { getGenres, type Genres } from "@features/movies/services/genres-repo";
+import { useNavigate } from "react-router";
 import "./movie-form.scss";
+import { uploadImage } from "@features/movies/services/images-repo";
 
 interface Props {
   editedMovie?: MovieProps;
@@ -11,12 +12,19 @@ interface Props {
   onSubmitSuccess?: () => void;
 }
 
-export const MovieForm: React.FC<Props> = ({ onAdd, onEdit, editedMovie, onSubmitSuccess }) => {
-  // Para el select de los años
+export const MovieForm: React.FC<Props> = ({
+  onAdd,
+  onEdit,
+  editedMovie,
+  onSubmitSuccess,
+}) => {
+  // FORMS
   const range = (start: number, end: number) =>
     Array.from({ length: end - start + 1 }, (_, index) => start + index);
   const currentYear = new Date().getFullYear();
+  const navigate = useNavigate();
 
+  // Pelicula inicial
   const defaultMovie: MovieProps | NewMovieDTO = editedMovie || {
     title: "",
     director: "",
@@ -27,7 +35,14 @@ export const MovieForm: React.FC<Props> = ({ onAdd, onEdit, editedMovie, onSubmi
     description: "",
   };
 
+  // ESTADOS
   const [movie, setMovie] = useState(defaultMovie);
+  const [genres, setGenres] = useState<Genres[]>([]);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+
+  useEffect(() => {
+    getGenres().then(setGenres).catch(console.error);
+  }, []);
 
   const handleChange = (
     event: ChangeEvent<
@@ -46,7 +61,7 @@ export const MovieForm: React.FC<Props> = ({ onAdd, onEdit, editedMovie, onSubmi
     }));
   };
 
-  const handleGenreChange = (genre: Genre) => {
+  const handleGenreChange = (genre: string) => {
     setMovie((prevMovie) => ({
       ...prevMovie,
       genre: prevMovie.genre.includes(genre)
@@ -55,19 +70,28 @@ export const MovieForm: React.FC<Props> = ({ onAdd, onEdit, editedMovie, onSubmi
     }));
   };
 
-  // Previene que renderice de nuevo al clickar en submit
-  const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (editedMovie && onEdit && "id" in movie) {
-      console.log("Actualized Movie: ", movie);
-      onEdit(movie);
-    } else if (onAdd) {
-      console.log("Register data: ", movie);
-      onAdd(movie);
-      console.log("guardado");
-      onSubmitSuccess?.();
-    }
+  const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
+    // Previene que renderice de nuevo al clickar en submit
+  event.preventDefault();
+  let imageUrl = movie.image;
+  // si el usuario ha seleccionado archivo, lo subimos
+  if (imageFile) {
+    imageUrl = await uploadImage(imageFile);
+  }
+  const finalMovie = {
+    ...movie,
+    image: imageUrl,
   };
+
+  if (editedMovie && onEdit && "id" in movie) {
+    onEdit(finalMovie as MovieProps);
+    navigate("/movies");
+  } else if (onAdd) {
+    await onAdd(finalMovie);
+    onSubmitSuccess?.();
+    navigate("/movies");
+  }
+};
 
   return (
     <section className="movie-form">
@@ -110,14 +134,14 @@ export const MovieForm: React.FC<Props> = ({ onAdd, onEdit, editedMovie, onSubmi
         <fieldset className="genres-fieldset">
           <legend>Genres</legend>
 
-          {GENRES.map((genre) => (
-            <label key={genre} className="genre-option">
+          {genres.map((genre) => (
+            <label key={genre.id} className="genre-option">
               <input
                 type="checkbox"
-                checked={movie.genre.includes(genre)}
-                onChange={() => handleGenreChange(genre)}
+                checked={movie.genre.includes(genre.name)}
+                onChange={() => handleGenreChange(genre.name)}
               />
-              <span>{genre}</span>
+              <span>{genre.name}</span>
             </label>
           ))}
         </fieldset>
@@ -147,12 +171,12 @@ export const MovieForm: React.FC<Props> = ({ onAdd, onEdit, editedMovie, onSubmi
           </label>
         </fieldset>
         <input
-          type="text"
-          name="image"
-          id="image"
-          placeholder="Image link"
-          value={movie.image}
-          onChange={handleChange}
+          type="file"
+          accept="image/*"
+          onChange={(img) => {
+            const file = img.target.files?.[0] || null;
+            setImageFile(file);
+          }}
         />
         <textarea
           name="description"
@@ -163,7 +187,7 @@ export const MovieForm: React.FC<Props> = ({ onAdd, onEdit, editedMovie, onSubmi
           required
         />
         <button type="submit">
-          {editedMovie ? 'Save changes' : 'Add Film'}
+          {editedMovie ? "Save changes" : "Add Film"}
         </button>
       </form>
     </section>

@@ -32,7 +32,7 @@ export const useMovies = () => {
     }
   };
 
-  const editMovie = async (movie: MovieProps) => {
+/*   const editMovie = async (movie: MovieProps) => {
     console.log(`Movie with id ${movie.id} edited (API)`);
     try {
       const updatedMovie: MovieProps = await moviesRepo.updateMovie(movie);
@@ -46,7 +46,7 @@ export const useMovies = () => {
       setError("Error editing movie");
       console.error("Error editing movie:", error);
     }
-  };
+  }; */
 
   const deleteMovie = async (id: string) => {
     try {
@@ -64,7 +64,6 @@ export const useMovies = () => {
     error,
     movies,
     addMovie,
-    editMovie,
     deleteMovie,
   };
 };

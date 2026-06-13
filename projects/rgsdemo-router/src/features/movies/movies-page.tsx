@@ -1,42 +1,32 @@
 import { MoviesList } from "./components/movies-list/movies-list";
-import { MovieForm } from "./components/movie-form/movie-form";
 import { MovieDetail } from "./components/movie-detail/movie-detail";
+import { MoviesFilters } from "./components/movie-filters/movie-filters";
 import { useMovies } from "./hooks/use-movies";
 import { useParams } from "react-router";
-import { useState, type SyntheticEvent } from "react";
+import { useEffect, useState } from "react";
 
 const MoviesPage: React.FC = () => {
-  const { error, movies, addMovie, editMovie, deleteMovie } = useMovies();
+  const { error, movies, deleteMovie } = useMovies();
   const { id } = useParams<{ id: string }>();
 
-  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
-
-  const handleDetailsToggle = (event: SyntheticEvent<HTMLDetailsElement>) => {
-    setIsDetailsOpen(event.currentTarget.open);
-  };
-
-  const handleMovieAdded = () => {
-    setIsDetailsOpen(false);
-  };
+  const [filteredMovies, setFilteredMovies] = useState(movies);
+  useEffect(() => {
+    setFilteredMovies(movies);
+  }, [movies]);
 
   return (
     <>
       <section>
         {id ? (
-          <MovieDetail id={id} />
+          <MovieDetail id={id} onDelete={deleteMovie} />
         ) : (
           <>
             {error && <p className="error">{error}</p>}
-            <details open={isDetailsOpen} onToggle={handleDetailsToggle}>
-              <summary>Add Film</summary>
-              <MovieForm onAdd={addMovie} onSubmitSuccess={handleMovieAdded} />
-            </details>
             {!error && (
-              <MoviesList
-                movies={movies}
-                onDelete={deleteMovie}
-                onEdit={editMovie}
-              />
+              <>
+                <MoviesFilters movies={movies} onFiltered={setFilteredMovies} />
+                <MoviesList movies={filteredMovies} />
+              </>
             )}
           </>
         )}
