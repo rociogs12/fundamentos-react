@@ -31,7 +31,6 @@ export const useAuth = (): UseUserType => {
     if (!response.ok) {
       throw new Error("Error en registro");
     }
-
     const data: User & { password?: string } = await response.json();
     delete data.password;
 
@@ -52,7 +51,6 @@ export const useAuth = (): UseUserType => {
     }
 
     const { accessToken } = await response.json();
-
     localStorage.setItem(TOKEN_KEY, accessToken);
   };
 
@@ -60,7 +58,6 @@ export const useAuth = (): UseUserType => {
     const token = localStorage.getItem(TOKEN_KEY);
 
     if (!token) return null;
-
     const decoded = jwtDecode<UserJwtPayload>(token);
 
     return {

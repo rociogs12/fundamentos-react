@@ -8,7 +8,7 @@ import { uploadImage } from "@features/movies/services/images-repo";
 interface Props {
   editedMovie?: MovieProps;
   onAdd?: (data: NewMovieDTO) => Promise<void>;
-  onEdit?: (data: MovieProps) => void;
+  onEdit?: (data: MovieProps) => Promise<void>;
   onSubmitSuccess?: () => void;
 }
 
@@ -72,26 +72,26 @@ export const MovieForm: React.FC<Props> = ({
 
   const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
     // Previene que renderice de nuevo al clickar en submit
-  event.preventDefault();
-  let imageUrl = movie.image;
-  // si el usuario ha seleccionado archivo, lo subimos
-  if (imageFile) {
-    imageUrl = await uploadImage(imageFile);
-  }
-  const finalMovie = {
-    ...movie,
-    image: imageUrl,
-  };
+    event.preventDefault();
+    let imageUrl = movie.image;
+    // si el usuario ha seleccionado archivo, lo subimos
+    if (imageFile) {
+      imageUrl = await uploadImage(imageFile);
+    }
+    const finalMovie = {
+      ...movie,
+      image: imageUrl,
+    };
 
-  if (editedMovie && onEdit && "id" in movie) {
-    onEdit(finalMovie as MovieProps);
-    navigate("/movies");
-  } else if (onAdd) {
-    await onAdd(finalMovie);
-    onSubmitSuccess?.();
-    navigate("/movies");
-  }
-};
+    if (editedMovie && onEdit && "id" in movie) {
+      await onEdit(finalMovie as MovieProps);
+      navigate("/movies");
+    } else if (onAdd) {
+      await onAdd(finalMovie);
+      onSubmitSuccess?.();
+      navigate("/movies");
+    }
+  };
 
   return (
     <section className="movie-form">

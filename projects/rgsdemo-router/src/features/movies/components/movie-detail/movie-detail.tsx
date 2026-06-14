@@ -3,13 +3,11 @@ import type { MovieProps } from "@features/movies/types/movie";
 import { useNavigate } from "react-router";
 import { useRef, useEffect } from "react";
 import { useDetails } from "@features/movies/hooks/use-details";
-import type { Genre } from "@features/movies/types/genre";
 
 interface Props {
   id: MovieProps["id"];
   isLoading?: boolean;
   onDelete: (id: string) => Promise<void>;
-  // onEdit: (movie: MovieProps) => void;
 }
 
 export const MovieDetail: React.FC<Props> = ({ id, onDelete }) => {
@@ -23,9 +21,14 @@ export const MovieDetail: React.FC<Props> = ({ id, onDelete }) => {
     }
   }, [movie, isLoading, navigate]);
 
-  // Función para manejar el botón de volver atrás
   const handleGoBack = (): void => {
     navigate("/movies");
+  };
+
+  const handleEditClick = (): void => {
+    if (movie) {
+      navigate(`/movies/edit/${movie?.id}`);
+    }
   };
 
   const handleDeleteClick = (): void => {
@@ -47,10 +50,16 @@ export const MovieDetail: React.FC<Props> = ({ id, onDelete }) => {
       console.error("Error deleting movie:", error);
     }
   };
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (!movie) {
+    return null; 
+  }
 
   return (
     <article className="movie-detail-card">
-      {movie ? (
         <>
           <div className="movie-body">
             <h5 className="movie-title">{movie.title}</h5>
@@ -60,7 +69,7 @@ export const MovieDetail: React.FC<Props> = ({ id, onDelete }) => {
           <ul className="list-group list-group-flush">
             <li className="list-group-item movie-year">{movie.year}</li>
             <li className="list-group-item movie-genre-tags">
-              {movie.genre.map((g: Genre) => (
+              {movie.genre.map((g: string) => (
                 <span key={g} className="genre-tag">
                   {g}
                 </span>
@@ -73,18 +82,23 @@ export const MovieDetail: React.FC<Props> = ({ id, onDelete }) => {
             <li className="list-group-item">{movie.description}</li>
           </ul>
         </>
-      ) : (
-        <p className="text-danger">Invalid movie id: {id}</p>
-      )}
-      <button className="movie-button" onClick={handleGoBack}>
-        Back to Films
-      </button>
-      <button
-        className="movie-button movie-button--delete"
-        onClick={handleDeleteClick}
-      >
-        Delete
-      </button>
+      <div className="button-group">
+        <button className="movie-button" onClick={handleGoBack}>
+          Back to Films
+        </button>
+        <button
+          className="movie-button movie-button--edit"
+          onClick={handleEditClick}
+        >
+          Edit
+        </button>
+        <button
+          className="movie-button movie-button--delete"
+          onClick={handleDeleteClick}
+        >
+          Delete
+        </button>
+      </div>
       <dialog ref={dialogRef} className="delete-dialog">
         <h3>Delete Movie</h3>
 

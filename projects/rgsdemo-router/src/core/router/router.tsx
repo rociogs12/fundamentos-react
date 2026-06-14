@@ -9,6 +9,9 @@ const NotFoundPage = React.lazy(() => import("@features/error/notfound-page"));
 const NewMoviePage = React.lazy(
   () => import("@features/movies/pages/newmovie-page"),
 );
+const EditMoviePage = React.lazy(
+  () => import("@features/movies/pages/editmovie-page"),
+);
 const AuthPage = React.lazy(() => import("@features/auth/auth-page"));
 
 export const AppRouter: React.FC = () => {
@@ -65,6 +68,18 @@ export const AppRouter: React.FC = () => {
             <ProtectedRoute>
               <AppLayout>
                 <NewMoviePage />
+              </AppLayout>
+            </ProtectedRoute>
+          </React.Suspense>
+        }
+      />
+      <Route
+        path="/movies/edit/:id"
+        element={
+          <React.Suspense fallback={<p>Loading...</p>}>
+            <ProtectedRoute>
+              <AppLayout>
+                <EditMoviePage />
               </AppLayout>
             </ProtectedRoute>
           </React.Suspense>

@@ -18,7 +18,7 @@ const MoviesPage: React.FC = () => {
     <>
       <section>
         {id ? (
-          <MovieDetail id={id} onDelete={deleteMovie} />
+          <MovieDetail id={id} onDelete={deleteMovie}/>
         ) : (
           <>
             {error && <p className="error">{error}</p>}
